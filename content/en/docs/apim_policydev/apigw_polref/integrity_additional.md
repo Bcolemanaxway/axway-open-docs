@@ -261,6 +261,17 @@ The runtime validation works as follows:
 * Fail with `reason: unknown header`, if the JWT token has a crit header list specified and you did not configured any list for your JWT verify filter.
 * Fail with `reason: crit header cannot be empty`, if the JWT token has an empty “crit” header list.
 
+**Type & Content Type Claims**: You can add a list of acceptable "_typ_" headers and a list of acceptable "_cty_" headers. These will be validated against the "_typ_" and "_cty_" header values present in the JWT being processed.
+
+{{% alert title="Note" %}} The list of acceptable headers for either _typ_ or _cty_ must entirely match an incoming JWT header value. For example, an incoming token with a content type _"json"_ 
+will not match an _"application/json"_ string in the accepted list. {{% /alert %}}
+
+The runtime validation works as follows:
+* Successful, if the "_typ_"/"_cty_" value of the incoming JWT matches a value on the accepted lists.
+* Successful, if the acceptable "_typ_"/"_cty_" lists are empty.
+* Fail with `reason: unknown header`, if the "_typ_"/"_cty_" value of the incoming JWT is not present in the accepted list.
+* Fail with `reason: typ/cty header cannot be empty`, if the "_typ_"/"_cty_" value of the incoming JWT is empty and a list is provided.
+
 ### Additional JWT verification steps
 
 The **JWT Verify** filter verifies the JWT signature with the token payload only. The following additional verification steps are also typically required:
