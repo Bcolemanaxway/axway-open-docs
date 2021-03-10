@@ -277,16 +277,16 @@ The runtime validation works as follows:
 * Fail with `reason: unknown header`, if the JWT token has a crit header list specified and you did not configured any list for your JWT verify filter.
 * Fail with `reason: crit header cannot be empty`, if the JWT token has an empty “crit” header list.
 
-**Type & Content Type Claims**: You can add a list of acceptable "_typ_" headers and a list of acceptable "_cty_" headers. These will be validated against the "_typ_" and "_cty_" header values present in the JWT being processed.
+**Type & Content Type Claims**: You can add a list of acceptable "typ" headers and a list of acceptable "cty" headers. The headers will be validated against the "typ" and "cty" header values present in the JWT being processed.
 
-{{% alert title="Note" %}} The list of acceptable headers for either _typ_ or _cty_ must entirely match an incoming JWT header value. For example, an incoming token with a content type _"json"_ 
-will not match an _"application/json"_ string in the accepted list. {{% /alert %}}
+The list of acceptable headers for either "typ" or "cty" must entirely match an incoming JWT header value. For example, an incoming token with a content type `json` will not match an `application/json` string in the accepted list.
 
 The runtime validation works as follows:
-* Successful, if the "_typ_"/"_cty_" value of the incoming JWT matches a value on the accepted lists.
-* Successful, if the acceptable "_typ_"/"_cty_" lists are empty.
-* Fail with `reason: unknown header`, if the "_typ_"/"_cty_" value of the incoming JWT is not present in the accepted list.
-* Fail with `reason: typ/cty header cannot be empty`, if the "_typ_"/"_cty_" value of the incoming JWT is empty and a list is provided.
+
+* Successful, if the "typ" or "cty" value of the incoming JWT matches a value on the accepted lists.
+* Successful, if the acceptable "typ" or "cty" lists are empty.
+* Fail with `reason: unknown header`, if the "typ" or "cty" value of the incoming JWT is not present in the accepted list.
+* Fail with `reason: typ/cty header cannot be empty`, if the "typ" or "cty" value of the incoming JWT is empty, and a list is provided.
 
 **Claims**: You can select a policy that allows you to validate a claim. If a JWT Header claim policy is defined, the validation of the claim works as follows:
 
